@@ -1,0 +1,12 @@
+FROM ubuntu:18.04
+RUN apt update && \
+apt upgrade && \
+DEBIAN_FRONTEND=noninteractive apt -y install wget tzdata libreadline7 locales && \
+localedef -f UTF-8 -i ko_KR ko_KR.utf8 && \
+ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
+cd / && \
+wget https://raw.githubusercontent.com/i0seph/alpine-postgresql/master/postgresql-7.3.21-ubuntu18.tar.gz && \
+tar xzf postgresql-7.3.21-ubuntu18.tar.gz && \
+rm -f postgresql-7.3.21-ubuntu18.tar.gz && \
+useradd -s /bin/bash -m postgres
+CMD ["/bin/bash"]
